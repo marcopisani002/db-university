@@ -75,21 +75,35 @@ ORDER BY
 
 --ME NE TROVO 70 AL POSTO DI 54
 
-SELECT
-    `course_teacher`.`teacher_id` AS `id_PROF`,
-    `course_teacher`.`course_id` AS `id_CORSO`,
-    `courses`.`degree_id` AS `id_facolta`,
-    `degrees`.`department_id` AS `id_DIPARTIMENTO`,
+-- SELECT
+--     `course_teacher`.`teacher_id` AS `id_PROF`,
+--     `course_teacher`.`course_id` AS `id_CORSO`,
+--     `courses`.`degree_id` AS `id_facolta`,
+--     `degrees`.`department_id` AS `id_DIPARTIMENTO`,
+--     `teachers`.`name`,
+--     `teachers`.`surname`
+-- FROM
+--     `teachers`
+--     INNER JOIN `course_teacher` ON `course_teacher`.`teacher_id` = `teachers`.`id`
+--     INNER JOIN `courses` ON `course_teacher`.`course_id` = `courses`.`id`
+--     INNER JOIN `degrees` ON `courses`.`degree_id` = `degrees`.`id`
+--     INNER JOIN `departments` ON `degrees`.`department_id` = `departments`.`id`
+-- WHERE
+--     `departments`.`name` LIKE 'Dipartimento di Matematica';
+SELECT DISTINCT
+ `course_teacher`.`teacher_id` AS `id_PROF`,
+ 
     `teachers`.`name`,
     `teachers`.`surname`
-FROM
-    `teachers`
-    INNER JOIN `course_teacher` ON `course_teacher`.`teacher_id` = `teachers`.`id`
-    INNER JOIN `courses` ON `course_teacher`.`course_id` = `courses`.`id`
-    INNER JOIN `degrees` ON `courses`.`degree_id` = `degrees`.`id`
-    INNER JOIN `departments` ON `degrees`.`department_id` = `departments`.`id`
-WHERE
-    `departments`.`name` LIKE 'Dipartimento di Matematica';
+  
+
+FROM `teachers`
+INNER JOIN `course_teacher`ON `course_teacher`.`teacher_id`=`teachers`.`id`
+INNER JOIN `courses` ON `course_teacher`.`course_id`=`courses`.`id`
+INNER JOIN `degrees` ON `courses`.`degree_id`=`degrees`.`id`
+INNER JOIN `departments`ON `degrees`.`department_id`=`departments`.`id`
+WHERE `departments`.`name` = 'Dipartimento di Matematica'
+GROUP BY `id_PROF`;
 
 -- 7. BONUS: Selezionare per ogni studente quanti tentativi d’esame ha sostenuto per
 -- superare ciascuno dei suoi esami
